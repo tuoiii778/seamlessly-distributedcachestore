@@ -1,18 +1,12 @@
-function searchRange(nums, target) {
-  let left = 0;
-  let right = nums.length - 1;
-  let start = -1;
-  let end = -1;
-  while (left <= right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] === target) {
-      start = mid;
-      end = mid;
-      while (nums[start] === target) start--;
-      while (nums[end] === target) end++;
-      return [start + 1, end - 1];
-    } else if (nums[mid] < target) left = mid + 1;
-    else right = mid - 1;
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    let key = arr[i];
+    let j = i - 1;
+    while (j >= 0 && arr[j] > key) {
+      arr[j + 1] = arr[j];
+      j--;
+    }
+    arr[j + 1] = key;
   }
-  return [start, end];
+  return arr;
 }
