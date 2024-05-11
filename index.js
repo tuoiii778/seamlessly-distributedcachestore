@@ -1,13 +1,20 @@
-function maxSlidingWindow(nums, k) {
-  const result = [];
-  const queue = [];
-  for (let i = 0; i < nums.length; i++) {
-    while (queue.length && nums[i] >= nums[queue[queue.length - 1]]) {
-      queue.pop();
-    }
-    queue.push(i);
-    if (queue[0] === i - k) queue.shift();
-    if (i >= k - 1) result.push(nums[queue[0]]);
+function isAlienSorted(words, order) {
+  const dict = new Map();
+  for (let i = 0; i < order.length; i++) {
+    dict.set(order[i], i);
   }
-  return result;
+  for (let i = 0; i < words.length - 1; i++) {
+    const word1 = words[i];
+    const word2 = words[i + 1];
+    let found = false;
+    for (let j = 0; j < Math.min(word1.length, word2.length); j++) {
+      if (word1[j] !== word2[j]) {
+        if (dict.get(word1[j]) > dict.get(word2[j])) return false;
+        found = true;
+        break;
+      }
+    }
+    if (!found && word1.length > word2.length) return false;
+  }
+  return true;
 }
